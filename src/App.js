@@ -1,18 +1,13 @@
-import "./App.css";
+import React, { useContext } from "react";
+import { NewsContext } from "./contexts/NewsContext";
+import axios from "axios";
+import "./assets/scss/app.scss";
 
 function App() {
+  const { tesla } = useContext(NewsContext);
   return (
-    <div className="App">
-      <header className="App-header">
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <header className="">{JSON.stringify(tesla)}</header>
     </div>
   );
 }
