@@ -1,15 +1,18 @@
-import React, { useContext } from "react";
-import { NewsContext } from "./contexts/NewsContext";
+import React from "react";
+import { Route, Routes } from "react-router-dom";
 import axios from "axios";
-import "./assets/scss/app.scss";
+import Home from "./pages/Home";
+import Details from "./pages/Details";
 
-function App() {
-  const { tesla } = useContext(NewsContext);
+const App = () => {
   return (
-    <div className="app">
-      <header className="">{JSON.stringify(tesla)}</header>
-    </div>
+    <>
+      <Routes>
+        <Route exact path="/" element={<Home />} />
+        <Route path="/:id" element={<Details />} />
+      </Routes>
+    </>
   );
-}
+};
 
 export default App;
