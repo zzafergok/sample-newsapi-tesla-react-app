@@ -1,10 +1,12 @@
-import React, { useContext } from "react";
-import { NewsContext } from "../contexts/NewsContext";
+import React from "react";
+import ListItem from "../components/ListItem";
 
 const Home = () => {
-  const { tesla } = useContext(NewsContext);
-
-  return <div>Home</div>;
+  return (
+    <div>
+      <ListItem />
+    </div>
+  );
 };
 
 export default Home;
