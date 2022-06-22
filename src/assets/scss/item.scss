@@ -19,6 +19,7 @@ img {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    overflow: inherit;
     &-header {
       &-image {
         width: 100%;
@@ -41,9 +42,23 @@ img {
 
     &-footer {
       display: flex;
-      justify-content: flex-end;
+      align-items: center;
+
       margin-right: 1rem;
-      margin-bottom: 1rem;
+
+      &-readMore {
+        cursor: pointer;
+        align-items: center;
+      }
     }
   }
+}
+
+.between {
+  justify-content: space-between;
+}
+
+.end {
+  justify-content: flex-end;
+  margin-bottom: 1rem;
 }
