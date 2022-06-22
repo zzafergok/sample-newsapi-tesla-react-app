@@ -1,14 +1,16 @@
-.container {
+.container-list-item {
   display: flex !important;
   flex-wrap: wrap !important;
   justify-content: center !important;
   max-width: 1200px !important;
   margin-block: 2rem !important;
   gap: 2rem !important;
+  min-height: 90vh !important;
 
   .row {
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
+    margin-top: 1.5rem !important;
   }
 }
