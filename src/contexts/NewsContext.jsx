@@ -16,12 +16,18 @@ const NewsContextProvider = (props) => {
           `https://newsapi.org/v2/everything?q=tesla&apiKey=${REACT_APP_API_KEY}`
         )
         .then((res) => {
-          console.log(res.data.articles);
           setTesla(res.data.articles);
         })
         .catch((err) => {
           console.log(err);
         });
+    }
+  }, []);
+
+  useEffect(() => {
+    const getDetail = JSON.parse(localStorage.getItem("detail"));
+    if (getDetail) {
+      setDetail(getDetail);
     }
   }, []);
 
@@ -37,21 +43,28 @@ const NewsContextProvider = (props) => {
 
       if (elementNewUrl === url) {
         let newDetail = {
+          idTitle: elementNewUrl,
           title: element.title,
           content: element.content,
           image: element.urlToImage,
           author: element.author,
-          date: element.publishedAt,
-          seen: true,
+          date: element.publishedAt.slice(0, -10),
+          isRead: true,
         };
-        setDetail(newDetail);
+        localStorage.setItem("detail", JSON.stringify(newDetail));
       }
-      // window.location.href = `/${url}`;
+      window.location.href = `/${url}`;
     });
+
+    setRead(
+      seen.filter(function (elem, pos) {
+        return seen.indexOf(elem) == pos;
+      })
+    );
   };
 
   return (
-    <NewsContext.Provider value={{ tesla, detail, setDetail, handleClick }}>
+    <NewsContext.Provider value={{ tesla, detail, handleClick }}>
       {props.children}
     </NewsContext.Provider>
   );
