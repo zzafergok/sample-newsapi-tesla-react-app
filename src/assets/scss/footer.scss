@@ -1,0 +1,19 @@
+.footer {
+  height: 21vh;
+  background-color: #18181bed;
+  /* border-top: 1px dashed #f2f2f2; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .footer-content {
+    p {
+      color: #99a1aa;
+    }
+  }
+
+  .footer-content > p > .github-icon {
+    cursor: pointer;
+    margin-left: 0.5rem;
+  }
+}
