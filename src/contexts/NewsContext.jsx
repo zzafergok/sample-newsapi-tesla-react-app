@@ -1,19 +1,70 @@
 import React, { useState, useEffect, createContext } from "react";
 import axios from "axios";
 
-const { REACT_APP_API_KEY } = process.env;
+const {
+  REACT_APP_API_KEY_FIRST,
+  REACT_APP_API_KEY_SECOND,
+  REACT_APP_API_KEY_THIRD,
+} = process.env;
 
 export const NewsContext = createContext();
 
 const NewsContextProvider = (props) => {
   const [tesla, setTesla] = useState([]);
   const [detail, setDetail] = useState({});
+  const [category, setCategory] = useState("tesla");
+  const [sort, setSort] = useState("relevancy");
+
+  const allCategory = [
+    "business",
+    "entertainment",
+    "general",
+    "health",
+    "science",
+    "sports",
+    "technology",
+  ];
+
+  const allSort = ["publishedAt", "popularity", "relevancy"];
 
   useEffect(() => {
+    getNews(category, sort);
+    console.log("sort", sort);
+  }, [sort, category]);
+
+  useEffect(() => {
+    const getDetail = JSON.parse(localStorage.getItem("detail"));
+    if (getDetail) {
+      setDetail(getDetail);
+    }
+
+    const getCateg = JSON.parse(localStorage.getItem("category"));
+    if (getCateg) {
+      setCategory(getCateg);
+    }
+
+    const getSort = JSON.parse(localStorage.getItem("sort"));
+    if (getSort) {
+      setSort(getSort);
+    }
+  }, []);
+
+  async function getNews(item, sortItem) {
     if (window.location.pathname == "/") {
-      axios
+      await axios
         .get(
-          `https://newsapi.org/v2/everything?q=tesla&apiKey=${REACT_APP_API_KEY}`
+          `https://newsapi.org/v2/everything?q=tesla&sortBy=${sortItem}&apiKey=${REACT_APP_API_KEY_THIRD}`
+        )
+        .then((res) => {
+          setTesla(res.data.articles);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else if (window.location.pathname == `/${item}`) {
+      await axios
+        .get(
+          `https://newsapi.org/v2/top-headlines?category=${item}&sortBy=${sortItem}&language=en&apiKey=${REACT_APP_API_KEY_THIRD}`
         )
         .then((res) => {
           setTesla(res.data.articles);
@@ -22,14 +73,7 @@ const NewsContextProvider = (props) => {
           console.log(err);
         });
     }
-  }, []);
-
-  useEffect(() => {
-    const getDetail = JSON.parse(localStorage.getItem("detail"));
-    if (getDetail) {
-      setDetail(getDetail);
-    }
-  }, []);
+  }
 
   const handleClick = (item, url) => {
     let splitUrl = item.title.toLowerCase();
@@ -63,8 +107,30 @@ const NewsContextProvider = (props) => {
     );
   };
 
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
+  async function handleSortChange(e) {
+    localStorage.setItem("sort", JSON.stringify(e.target.value));
+    window.location.href =
+      await `${window.location.pathname}?sortBy=${e.target.value}`;
+  }
+
   return (
-    <NewsContext.Provider value={{ tesla, detail, handleClick }}>
+    <NewsContext.Provider
+      value={{
+        tesla,
+        detail,
+        handleClick,
+        setCategory,
+        capitalizeFirstLetter,
+        handleSortChange,
+        sort,
+        allCategory,
+        allSort,
+      }}
+    >
       {props.children}
     </NewsContext.Provider>
   );
