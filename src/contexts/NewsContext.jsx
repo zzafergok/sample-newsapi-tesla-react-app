@@ -14,6 +14,8 @@ export const NewsContext = createContext();
 const NewsContextProvider = (props) => {
   //tesla
   const [tesla, setTesla] = useState([]);
+  const [teslaItem, setTeslaItem] = useState([]);
+  const [teslaTitle, setTeslaTitle] = useState("");
   //detail
   const [detail, setDetail] = useState({});
   const [searchDetail, setSearchDetail] = useState({});
@@ -61,6 +63,21 @@ const NewsContextProvider = (props) => {
     if (getSearchDetail) {
       setSearchDetail(getSearchDetail);
     }
+
+    const getTesla = JSON.parse(localStorage.getItem("tesla"));
+    if (getTesla) {
+      setTesla(getTesla);
+    }
+
+    const getTeslaItem = JSON.parse(localStorage.getItem("teslaItem"));
+    if (getTeslaItem) {
+      setTeslaItem(getTeslaItem);
+    }
+
+    const getTeslaTitle = JSON.parse(localStorage.getItem("teslaTitle"));
+    if (getTeslaTitle) {
+      setTeslaTitle(getTeslaTitle);
+    }
   }, []);
 
   // get newsapi request
@@ -72,8 +89,8 @@ const NewsContextProvider = (props) => {
         )
         .then((res) => {
           setTeslaLoading(true);
-          console.log(res);
-          setTesla(res.data.articles);
+          localStorage.setItem("tesla", JSON.stringify(res.data.articles));
+          // setTesla(res.data.articles);
           setTeslaLoading(false);
         })
         .catch((err) => {
@@ -128,8 +145,40 @@ const NewsContextProvider = (props) => {
             time: element.publishedAt.slice(11, -1),
             isRead: true,
           };
+
           localStorage.setItem("detail", JSON.stringify(newDetail));
         }
+
+        if (element.description === item.description) {
+          let newDetail = {
+            author: item.author,
+            content: item.content,
+            description: item.description,
+            publishedAt: item.publishedAt,
+            title: item.title,
+            url: item.url,
+            urlToImage: item.urlToImage,
+            isSeen: true,
+          };
+
+          const newArr = [...teslaItem, newDetail];
+
+          const uniqueIds = [];
+
+          const uniqueTeslaItem = newArr.filter((element) => {
+            const isDuplicate = uniqueIds.includes(element.title);
+
+            if (!isDuplicate) {
+              uniqueIds.push(element.title);
+              return true;
+            }
+            return false;
+          });
+
+          localStorage.setItem("teslaTitle", JSON.stringify(item.title));
+          localStorage.setItem("teslaItem", JSON.stringify(uniqueTeslaItem));
+        }
+
         window.location.href = `/${url}`;
       });
 
@@ -168,6 +217,7 @@ const NewsContextProvider = (props) => {
     <NewsContext.Provider
       value={{
         tesla,
+        teslaItem,
         detail,
         searchDetail,
         handleClick,
@@ -180,6 +230,7 @@ const NewsContextProvider = (props) => {
         setSearch,
         searchArray,
         getSearch,
+        teslaTitle,
       }}
     >
       {props.children}

@@ -5,7 +5,8 @@ import { Triangle } from "react-loader-spinner";
 import "../assets/scss/item.scss";
 
 function Item({ item }) {
-  const { tesla, handleClick, detail, teslaLoading } = useContext(NewsContext);
+  const { tesla, handleClick, detail, teslaLoading, teslaItem, teslaTitle } =
+    useContext(NewsContext);
 
   let splitUrl = item && item.title && item.title.toLowerCase();
   splitUrl = splitUrl && splitUrl.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "");
@@ -31,7 +32,7 @@ function Item({ item }) {
             <p className="card-body-text">{desc}</p>
           </div>
         </div>
-        <div className={`card-footer end`}>
+        <div className="card-footer between">
           <a
             onClick={() => {
               handleClick(item, newUrl);
@@ -40,6 +41,17 @@ function Item({ item }) {
           >
             Read More
           </a>
+
+          {teslaItem.map((tItem, index) => {
+            if (tItem.title === item.title) {
+              return (
+                <div className="card-footer-left" key={index}>
+                  <span>Seen</span>
+                  <AiFillEye />
+                </div>
+              );
+            }
+          })}
         </div>
       </div>
     );
