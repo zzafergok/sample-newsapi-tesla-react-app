@@ -13,7 +13,6 @@ function ListItem() {
               return <Item key={index} item={item} />;
             })
           : tesla.map((item, index) => {
-              item.isRead = false;
               return <Item key={index} item={item} />;
             })}
       </div>
