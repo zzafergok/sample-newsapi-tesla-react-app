@@ -1,10 +1,11 @@
 import React, { useContext, useState, useEffect } from "react";
 import { NewsContext } from "../contexts/NewsContext";
 import { AiFillEye } from "react-icons/ai";
+import { Triangle } from "react-loader-spinner";
 import "../assets/scss/item.scss";
 
 function Item({ item }) {
-  const { tesla, handleClick, detail } = useContext(NewsContext);
+  const { tesla, handleClick, detail, teslaLoading } = useContext(NewsContext);
 
   let splitUrl = item && item.title && item.title.toLowerCase();
   splitUrl = splitUrl && splitUrl.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "");
@@ -14,8 +15,16 @@ function Item({ item }) {
     return (
       <div className="card">
         <div>
-          <div className="card-header">
-            <img src={imageUrl} alt={title} className="card-header-image" />
+          <div
+            className={`card-header ${
+              teslaLoading === true ? "card-loading" : ""
+            }`}
+          >
+            {teslaLoading === true ? (
+              <Triangle ariaLabel="loading-indicator" color="grey" />
+            ) : (
+              <img src={imageUrl} alt={title} className="card-header-image" />
+            )}
           </div>
           <div className="card-body">
             <h4 className="card-body-title">{title}</h4>

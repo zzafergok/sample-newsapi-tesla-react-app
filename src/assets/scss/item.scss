@@ -29,6 +29,12 @@ img {
         border-radius: 1em 1em 0 0;
       }
     }
+
+    &-loading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
     &-body {
       padding: 1rem;
       display: flex;

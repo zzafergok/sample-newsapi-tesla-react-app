@@ -6,44 +6,74 @@ import Footer from "../components/Footer";
 import "../assets/scss/details.scss";
 
 const Details = () => {
-  const { detail } = useContext(NewsContext);
+  const { detail, searchDetail } = useContext(NewsContext);
 
-  return (
-    <div>
-      <Navbar />
+  const getDetail = (title, date, time, image, content, author) => {
+    return (
       <div className="container container-item-list">
         <div className="row">
           <div className="col-9">
             <div className="detail-header">
               <div className="detail-header-title">
-                <h1>{detail.title}</h1>
+                <h1>{title}</h1>
               </div>
               <div className="detail-header-date">
-                <p className="detail-header-date-label">Date: </p>
-                <p className="detail-header-date-value">{detail.date}</p>
+                <div>
+                  <p className="detail-header-date-label">Date: </p>
+                  <p className="detail-header-date-value">{date}</p>
+                </div>
+                <div>
+                  <p className="detail-header-date-label">Time: </p>
+                  <p className="detail-header-date-value">{time}</p>
+                </div>
               </div>
               <div className="detail-header-image">
-                <img src={detail.image} alt={detail.title} />
+                <img src={image} alt={title} />
               </div>
             </div>
             <div className="detail-body">
               <div className="detail-body-content">
-                <p>{detail.content}</p>
+                <p>{content}</p>
               </div>
             </div>
-            {detail.author && (
+            {author && (
               <div className="detail-footer">
                 <div className="detail-footer-label">
                   <p>Author:</p>
                 </div>
                 <div className="detail-footer-author">
-                  <p>{detail.author}</p>
+                  <p>{author}</p>
                 </div>
               </div>
             )}
           </div>
         </div>
       </div>
+    );
+  };
+
+  return (
+    <div>
+      <Navbar />
+      {detail.title !== undefined
+        ? getDetail(
+            detail.title,
+            detail.date,
+            detail.time,
+            detail.image,
+            detail.content,
+            detail.author
+          )
+        : searchDetail.title !== undefined
+        ? getDetail(
+            searchDetail.title,
+            searchDetail.date,
+            searchDetail.time,
+            searchDetail.image,
+            searchDetail.content,
+            searchDetail.author
+          )
+        : null}
       <Footer />
     </div>
   );

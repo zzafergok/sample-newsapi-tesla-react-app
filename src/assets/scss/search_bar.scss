@@ -1,0 +1,35 @@
+input[type="search"]::-webkit-search-cancel-button {
+  display: none;
+}
+
+div {
+  .search-bar {
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    background: #f2f2f2;
+    padding: 0.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #000;
+    width: 70%;
+    margin-right: 0.5rem;
+    &:focus {
+      background: #3755a0;
+      color: #f2f2f2;
+    }
+  }
+
+  .search-button {
+    padding: 0.5rem;
+    font-size: 16px;
+    font-weight: bold;
+    border: 1px solid #dbdbdb;
+    border-radius: 5px;
+    background: transparent;
+    background: #3755a0;
+    border-color: #3755a0;
+    color: #f2f2f2;
+    cursor: pointer;
+  }
+}
