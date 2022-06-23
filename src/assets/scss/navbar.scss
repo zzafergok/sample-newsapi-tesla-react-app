@@ -39,6 +39,11 @@
           text-decoration: none;
           font-size: 1.5rem;
           color: rgb(35, 35, 35);
+          border-bottom: 2px solid transparent;
+
+          &:hover {
+            border-bottom-color: #3755a0;
+          }
         }
       }
     }
