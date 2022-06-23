@@ -1,0 +1,27 @@
+.container {
+  .all-categories {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin-top: 4rem !important;
+
+    &-button {
+      margin: 0 1rem;
+      button {
+        padding: 0.5rem;
+        font-size: 16px;
+        font-weight: bold;
+        border: 1px solid #dbdbdb;
+        border-radius: 5px;
+        background: transparent;
+
+        &:hover {
+          background: #3755a0;
+          border-color: #3755a0;
+          color: #f2f2f2;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
