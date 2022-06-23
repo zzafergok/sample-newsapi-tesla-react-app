@@ -18,8 +18,13 @@
         margin-bottom: 2rem;
         &-date {
           display: flex;
+          justify-content: space-between;
           align-items: center;
-          justify-content: flex-start;
+          div {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+          }
 
           &-label {
             color: rgb(99, 99, 99);
