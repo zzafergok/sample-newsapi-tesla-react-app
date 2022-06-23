@@ -25,12 +25,9 @@ const NewsContextProvider = (props) => {
     "technology",
   ];
 
-  const allSort = ["publishedAt", "popularity", "relevancy"];
-
   useEffect(() => {
-    getNews(category, sort);
-    console.log("sort", sort);
-  }, [sort, category]);
+    getNews(category);
+  }, [category]);
 
   useEffect(() => {
     const getDetail = JSON.parse(localStorage.getItem("detail"));
@@ -53,7 +50,7 @@ const NewsContextProvider = (props) => {
     if (window.location.pathname == "/") {
       await axios
         .get(
-          `https://newsapi.org/v2/everything?q=tesla&sortBy=${sortItem}&apiKey=${REACT_APP_API_KEY_THIRD}`
+          `https://newsapi.org/v2/everything?q=tesla&apiKey=${REACT_APP_API_KEY_THIRD}`
         )
         .then((res) => {
           setTesla(res.data.articles);
@@ -64,7 +61,7 @@ const NewsContextProvider = (props) => {
     } else if (window.location.pathname == `/${item}`) {
       await axios
         .get(
-          `https://newsapi.org/v2/top-headlines?category=${item}&sortBy=${sortItem}&language=en&apiKey=${REACT_APP_API_KEY_THIRD}`
+          `https://newsapi.org/v2/top-headlines?category=${item}&language=en&apiKey=${REACT_APP_API_KEY_THIRD}`
         )
         .then((res) => {
           setTesla(res.data.articles);
@@ -111,11 +108,12 @@ const NewsContextProvider = (props) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
-  async function handleSortChange(e) {
-    localStorage.setItem("sort", JSON.stringify(e.target.value));
-    window.location.href =
-      await `${window.location.pathname}?sortBy=${e.target.value}`;
-  }
+  // function handleSortChange(item) {
+  //   localStorage.setItem("sort", JSON.stringify(item));
+  //   setInterval(() => {
+  //     window.location.href = `${window.location.pathname}?sortBy=${item}`;
+  //   }, 1000);
+  // }
 
   return (
     <NewsContext.Provider
@@ -125,10 +123,8 @@ const NewsContextProvider = (props) => {
         handleClick,
         setCategory,
         capitalizeFirstLetter,
-        handleSortChange,
-        sort,
+        // handleSortChange,
         allCategory,
-        allSort,
       }}
     >
       {props.children}

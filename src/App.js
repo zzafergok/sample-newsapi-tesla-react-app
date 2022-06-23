@@ -7,7 +7,7 @@ import Details from "./pages/Details";
 import Categories from "./pages/Categories";
 
 const App = () => {
-  const { allSort, allCategory } = useContext(NewsContext);
+  const { allCategory } = useContext(NewsContext);
   return (
     <>
       <Routes>
@@ -21,18 +21,6 @@ const App = () => {
               element={<Categories />}
             />
           );
-        })}
-
-        {allCategory.map((category) => {
-          return allSort.map((sort) => {
-            return (
-              <Route
-                key={sort}
-                path={`/${category}?sortBy=${sort}`}
-                element={<Categories />}
-              />
-            );
-          });
         })}
       </Routes>
     </>

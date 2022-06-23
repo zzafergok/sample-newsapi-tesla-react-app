@@ -3,8 +3,7 @@ import { NewsContext } from "../contexts/NewsContext";
 import "../assets/scss/category.scss";
 
 const Category = () => {
-  const { setCategory, capitalizeFirstLetter, allCategory } =
-    useContext(NewsContext);
+  const { capitalizeFirstLetter, allCategory } = useContext(NewsContext);
 
   let tesla = "tesla";
   return (
