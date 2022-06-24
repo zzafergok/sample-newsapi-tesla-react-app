@@ -1,13 +1,16 @@
 .container {
   .all-categories {
     display: flex !important;
-    align-items: center !important;
     justify-content: center !important;
     margin-top: 4rem !important;
+    @media (min-width: 320px) and (max-width: 550px) {
+      margin-top: 8rem !important;
+    }
 
     &-button {
-      margin: 0 1rem;
+      display: contents;
       button {
+        margin: 0.5rem;
         padding: 0.5rem;
         font-size: 16px;
         font-weight: bold;

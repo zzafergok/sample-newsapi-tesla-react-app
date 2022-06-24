@@ -13,41 +13,100 @@
   left: 0;
   right: 0;
   width: 100%;
-  height: 3rem;
+  @media (min-width: 551px) {
+    height: 3rem;
+  }
+  @media (min-width: 320px) and (max-width: 550px) {
+    height: 7rem;
+  }
 
   .container {
     display: flex;
     align-items: center;
-    padding-left: 7.5rem;
+
     padding-right: 0;
     max-width: 1200px;
+    @media (min-width: 650px) {
+      padding-left: 7.5rem;
+    }
     .row {
       width: 100% !important;
 
-      .navbar-logo {
+      @media (min-width: 320px) and (max-width: 550px) {
+        display: block !important;
+      }
+
+      .navbar-logo-link-group {
         display: flex;
         align-items: center;
-        .navbar-logo-link {
-          img {
-            height: 20px;
+        justify-content: space-between;
+        @media (min-width: 320px) and (max-width: 550px) {
+          margin-bottom: 0.75rem;
+          flex: 0 0 100% !important;
+          max-width: 100% !important;
+        }
+        .navbar-logo {
+          display: flex;
+          align-items: center;
+          .navbar-logo-link {
+            img {
+              height: 20px;
+            }
+          }
+        }
+
+        .navbar-brand-wrapper {
+          display: flex;
+          align-items: center;
+          @media (min-width: 680px) and (max-width: 768px) {
+            margin-right: 1rem;
+          }
+          @media (min-width: 769px) and (max-width: 800px) {
+            margin-right: 3rem;
+          }
+          @media (min-width: 801px) {
+            margin-right: 5rem;
+          }
+          a {
+            text-decoration: none;
+            font-size: 1.5rem;
+            color: rgb(35, 35, 35);
+            border-bottom: 2px solid transparent;
+
+            &:hover {
+              border-bottom-color: #3755a0;
+            }
           }
         }
       }
 
-      .navbar-brand-wrapper {
-        display: flex;
-        align-items: center;
-        a {
-          text-decoration: none;
-          font-size: 1.5rem;
-          color: rgb(35, 35, 35);
-          border-bottom: 2px solid transparent;
+      .navbar-brand-search {
+        @media (min-width: 320px) and (max-width: 550px) {
+          flex: 0 0 100% !important;
+          max-width: 100% !important;
+        }
 
-          &:hover {
-            border-bottom-color: #3755a0;
+        div {
+          @media (min-width: 320px) and (max-width: 550px) {
+            display: flex;
+            justify-content: space-between;
+          }
+
+          input {
+            @media (min-width: 320px) and (max-width: 550px) {
+              width: 68%;
+            }
           }
         }
       }
     }
   }
+}
+
+.navbar-flag {
+  height: 3rem !important;
+}
+
+.navbar-logo-link-group-flag {
+  margin-bottom: 0rem !important;
 }

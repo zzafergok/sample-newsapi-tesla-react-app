@@ -58,7 +58,7 @@ function Item({ item }) {
   };
 
   return (
-    <div className="col-md-3 card-wrapper">
+    <div className="col-md-3 col-sm-4 col-8 card-wrapper">
       {getCategory(item.urlToImage, item.title, item.description)}
     </div>
   );

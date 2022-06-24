@@ -8,8 +8,8 @@ const Category = () => {
   let tesla = "tesla";
   return (
     <div className="container">
-      <div className="all-categories">
-        <div className="all-categories-button">
+      <div className="row all-categories">
+        <div className="col-12 all-categories-button">
           <button
             onClick={() => {
               window.location.href = `/`;
