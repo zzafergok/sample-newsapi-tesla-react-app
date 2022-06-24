@@ -11,7 +11,9 @@ const Footer = () => {
           <BsGithub
             className="github-icon"
             onClick={() => {
-              window.open("https://github.com/zzafergok/sample-todo-react-app");
+              window.open(
+                "https://github.com/zzafergok/sample-newsapi-tesla-react-app"
+              );
             }}
           />
           .
