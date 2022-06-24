@@ -85,7 +85,7 @@ const NewsContextProvider = (props) => {
     if (window.location.pathname == "/") {
       await axios
         .get(
-          `https://newsapi.org/v2/everything?q=tesla&apiKey=${REACT_APP_API_KEY_SECOND}`
+          `https://newsapi.org/v2/everything?q=tesla&sortBy=publishedAt&apiKey=${REACT_APP_API_KEY_SECOND}`
         )
         .then((res) => {
           setTeslaLoading(true);
@@ -99,7 +99,7 @@ const NewsContextProvider = (props) => {
     } else if (window.location.pathname == `/${item}`) {
       await axios
         .get(
-          `https://newsapi.org/v2/top-headlines?category=${item}&pageSize=100&language=en&apiKey=${REACT_APP_API_KEY_SECOND}`
+          `https://newsapi.org/v2/top-headlines?category=${item}&sortBy=publishedAt&pageSize=100&language=en&apiKey=${REACT_APP_API_KEY_SECOND}`
         )
         .then((res) => {
           setTeslaLoading(true);
@@ -115,7 +115,7 @@ const NewsContextProvider = (props) => {
   // get search news
   const getSearch = async (item) => {
     setLoading(true);
-    const url = `https://newsapi.org/v2/everything?q=${item}&apiKey=${REACT_APP_API_KEY_SECOND}`;
+    const url = `https://newsapi.org/v2/everything?q=${item}&sortBy=publishedAt&apiKey=${REACT_APP_API_KEY_SECOND}`;
     const data = await axios.get(url);
     console.log("data.data.articles", data.data.articles);
     setSearchArray(data.data.articles);
