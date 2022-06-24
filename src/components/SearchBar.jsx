@@ -1,32 +1,42 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { NewsContext } from "../contexts/NewsContext";
 import "../assets/scss/search_bar.scss";
 
 const SearchBar = () => {
-  const { search, setSearch, getSearch } = useContext(NewsContext);
+  const { search, setSearch, getSearch, setError } = useContext(NewsContext);
+
   return (
     <div>
       <input
         className="search-bar"
         type="search"
         value={search}
+        placeholder={search.length > 0 ? "" : "Please enter at least one word"}
         onChange={(e) => {
           setSearch(e.target.value);
         }}
         onKeyDown={(e) => {
-          if (e.key === "Enter") {
+          if (e.key === "Enter" && search.length !== 0) {
             getSearch(search);
             setSearch("");
+            setError(false);
+          } else {
+            setError(true);
           }
         }}
       />
       <button
-        className="search-button"
+        className={`search-button ${
+          search.length > 0 ? "" : "search-button-word"
+        } `}
         onClick={() => {
-          console.log("1");
-          getSearch(search);
-          setSearch("");
-          console.log("2");
+          if (search.length !== 0) {
+            getSearch(search);
+            setSearch("");
+            setError(false);
+          } else {
+            setError(true);
+          }
         }}
       >
         Search

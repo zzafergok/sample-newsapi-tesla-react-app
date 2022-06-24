@@ -27,6 +27,7 @@ const NewsContextProvider = (props) => {
   //search
   const [search, setSearch] = useState("");
   const [searchArray, setSearchArray] = useState([]);
+  const [error, setError] = useState(false);
 
   const allCategory = [
     "business",
@@ -85,7 +86,7 @@ const NewsContextProvider = (props) => {
     if (window.location.pathname == "/") {
       await axios
         .get(
-          `https://newsapi.org/v2/everything?q=tesla&sortBy=publishedAt&apiKey=${REACT_APP_API_KEY_SECOND}`
+          `https://newsapi.org/v2/everything?q=tesla&sortBy=publishedAt&apiKey=${REACT_APP_API_KEY_THIRD}`
         )
         .then((res) => {
           setTeslaLoading(true);
@@ -99,7 +100,7 @@ const NewsContextProvider = (props) => {
     } else if (window.location.pathname == `/${item}`) {
       await axios
         .get(
-          `https://newsapi.org/v2/top-headlines?category=${item}&sortBy=publishedAt&pageSize=100&language=en&apiKey=${REACT_APP_API_KEY_SECOND}`
+          `https://newsapi.org/v2/top-headlines?category=${item}&sortBy=publishedAt&pageSize=100&language=en&apiKey=${REACT_APP_API_KEY_THIRD}`
         )
         .then((res) => {
           setTeslaLoading(true);
@@ -115,9 +116,8 @@ const NewsContextProvider = (props) => {
   // get search news
   const getSearch = async (item) => {
     setLoading(true);
-    const url = `https://newsapi.org/v2/everything?q=${item}&sortBy=publishedAt&apiKey=${REACT_APP_API_KEY_SECOND}`;
+    const url = `https://newsapi.org/v2/everything?q=${item}&sortBy=publishedAt&apiKey=${REACT_APP_API_KEY_THIRD}`;
     const data = await axios.get(url);
-    console.log("data.data.articles", data.data.articles);
     setSearchArray(data.data.articles);
     setLoading(false);
   };
@@ -231,6 +231,8 @@ const NewsContextProvider = (props) => {
         searchArray,
         getSearch,
         teslaTitle,
+        error,
+        setError,
       }}
     >
       {props.children}

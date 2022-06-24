@@ -5,10 +5,9 @@ import Logo from "../assets/images/icecat_logo.webp";
 import "../assets/scss/navbar.scss";
 
 const Navbar = () => {
-  const { detail } = useContext(NewsContext);
+  const { detail, error } = useContext(NewsContext);
 
   const [flag, setFlag] = useState(false);
-  console.log("flag", flag);
 
   useEffect(() => {
     searchBar();
@@ -26,31 +25,29 @@ const Navbar = () => {
   };
 
   return (
-    <div>
-      <nav className={`navbar ${flag === true ? "navbar-flag" : ""}`}>
-        <div className="container">
-          <div className="row">
-            <div
-              className={`col-5 navbar-logo-link-group ${
-                flag === true ? "navbar-logo-link-group-flag" : ""
-              }`}
-            >
-              <div className="navbar-logo">
-                <a className="navbar-logo-link" href="/">
-                  <img src={Logo} alt="Icecat" />
-                </a>
-              </div>
-              <div className="navbar-brand-wrapper">
-                <a className="navbar-brand-wrapper-home" href="/">
-                  Home
-                </a>
-              </div>
+    <nav className={`navbar ${flag === true ? "navbar-flag" : ""}`}>
+      <div className="container">
+        <div className="row">
+          <div
+            className={`col-5 navbar-logo-link-group ${
+              flag === true ? "navbar-logo-link-group-flag" : ""
+            }`}
+          >
+            <div className="navbar-logo">
+              <a className="navbar-logo-link" href="/">
+                <img src={Logo} alt="Icecat" />
+              </a>
             </div>
-            <div className="col-7 navbar-brand-search">{searchBar()}</div>
+            <div className="navbar-brand-wrapper">
+              <a className="navbar-brand-wrapper-home" href="/">
+                Home
+              </a>
+            </div>
           </div>
+          <div className="col-7 navbar-brand-search">{searchBar()}</div>
         </div>
-      </nav>
-    </div>
+      </div>
+    </nav>
   );
 };
 
