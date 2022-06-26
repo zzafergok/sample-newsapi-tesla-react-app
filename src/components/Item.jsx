@@ -1,12 +1,11 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext } from "react";
 import { NewsContext } from "../contexts/NewsContext";
 import { AiFillEye } from "react-icons/ai";
 import { Triangle } from "react-loader-spinner";
 import "../assets/scss/item.scss";
 
 function Item({ item }) {
-  const { tesla, handleClick, detail, teslaLoading, teslaItem, teslaTitle } =
-    useContext(NewsContext);
+  const { handleClick, teslaLoading, teslaItem } = useContext(NewsContext);
 
   let splitUrl = item && item.title && item.title.toLowerCase();
   splitUrl = splitUrl && splitUrl.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "");
