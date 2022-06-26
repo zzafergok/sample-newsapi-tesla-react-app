@@ -21,7 +21,7 @@ const SearchBar = () => {
             setSearch("");
             setError(false);
           } else {
-            setError(true);
+            // setError(true);
             setTimeout(() => {
               setError(false);
             }, 7500);

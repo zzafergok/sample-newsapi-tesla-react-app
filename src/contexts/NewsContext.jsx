@@ -108,91 +108,6 @@ const NewsContextProvider = (props) => {
     }
   };
 
-  //go to detail page
-  const handleClick = (item, url) => {
-    tesla.length > 0 &&
-      tesla.filter((element) => {
-        let elementSplitUrl = element.title.toLowerCase();
-        elementSplitUrl = elementSplitUrl.replace(
-          /[.,\/#!$%\^&\*;:{}=\-_`~()]/g,
-          ""
-        );
-        let elementNewUrl = elementSplitUrl.replace(/\s/g, "-");
-
-        if (elementNewUrl === url) {
-          let newDetail = {
-            idTitle: elementNewUrl,
-            title: element.title,
-            content: element.content,
-            image: element.urlToImage,
-            author: element.author,
-            date: element.publishedAt.slice(0, -10),
-            time: element.publishedAt.slice(11, -1),
-            isRead: true,
-          };
-
-          localStorage.setItem("detail", JSON.stringify(newDetail));
-        }
-
-        //seen
-        if (element.description === item.description) {
-          let newDetail = {
-            author: item.author,
-            content: item.content,
-            description: item.description,
-            publishedAt: item.publishedAt,
-            title: item.title,
-            url: item.url,
-            urlToImage: item.urlToImage,
-            isSeen: true,
-          };
-
-          const newArr = [...teslaItem, newDetail];
-
-          const uniqueIds = [];
-
-          const uniqueTeslaItem = newArr.filter((element) => {
-            const isDuplicate = uniqueIds.includes(element.title);
-
-            if (!isDuplicate) {
-              uniqueIds.push(element.title);
-              return true;
-            }
-            return false;
-          });
-
-          localStorage.setItem("teslaItem", JSON.stringify(uniqueTeslaItem));
-        }
-
-        window.location.href = `/${url}`;
-      });
-
-    searchArray.length > 0 &&
-      searchArray?.filter((element) => {
-        let elementSplitUrl = element.title.toLowerCase();
-        elementSplitUrl = elementSplitUrl.replace(
-          /[.,\/#!$%\^&\*;:{}=\-_`~()]/g,
-          ""
-        );
-        let elementNewUrl = elementSplitUrl.replace(/\s/g, "-");
-
-        if (elementNewUrl === url) {
-          let newDetail = {
-            idTitle: elementNewUrl,
-            title: element.title,
-            content: element.content,
-            image: element.urlToImage,
-            author: element.author,
-            date: element.publishedAt.slice(0, -10),
-            time: element.publishedAt.slice(11, -1),
-            isRead: true,
-          };
-          localStorage.setItem("searchDetail", JSON.stringify(newDetail));
-        }
-        window.location.href = `/${url}`;
-      });
-  };
-
   return (
     <NewsContext.Provider
       value={{
@@ -200,7 +115,6 @@ const NewsContextProvider = (props) => {
         teslaItem,
         detail,
         searchDetail,
-        handleClick,
         setCategory,
         allCategory,
         loading,
