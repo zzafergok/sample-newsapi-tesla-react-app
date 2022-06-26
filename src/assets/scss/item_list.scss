@@ -8,6 +8,29 @@
   min-height: 90vh !important;
   margin-top: 0px !important;
 
+  .searched {
+    margin-bottom: -1rem !important;
+    margin-top: 1rem !important;
+    width: 100%;
+
+    &-group {
+      display: flex;
+      align-items: center;
+
+      &-button {
+        height: 2rem;
+        margin-left: 1rem;
+        border-radius: 16px;
+        border: 1px solid #3755a0;
+
+        &:hover {
+          cursor: pointer;
+          text-decoration: line-through;
+        }
+      }
+    }
+  }
+
   .row {
     display: flex !important;
     align-items: center !important;
