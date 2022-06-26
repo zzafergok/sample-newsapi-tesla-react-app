@@ -3,7 +3,7 @@ import { NewsContext } from "../contexts/NewsContext";
 import "../assets/scss/category.scss";
 
 const Category = () => {
-  const { allCategory } = useContext(NewsContext);
+  const { allCategory, error } = useContext(NewsContext);
 
   let teslaText = "tesla";
 
@@ -13,8 +13,8 @@ const Category = () => {
   }
   return (
     <div className="container">
-      <div className="row all-categories">
-        <div className="col-12 all-categories-button">
+      <div className={`row all-categories ${error === true ? "error" : ""}`}>
+        <div className="col-12 all-categories-button ">
           <button
             onClick={() => {
               window.location.href = `/`;
