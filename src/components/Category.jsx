@@ -3,9 +3,14 @@ import { NewsContext } from "../contexts/NewsContext";
 import "../assets/scss/category.scss";
 
 const Category = () => {
-  const { capitalizeFirstLetter, allCategory } = useContext(NewsContext);
+  const { allCategory } = useContext(NewsContext);
 
-  let tesla = "tesla";
+  let teslaText = "tesla";
+
+  // text first character to uppercase
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
   return (
     <div className="container">
       <div className="row all-categories">
@@ -15,7 +20,7 @@ const Category = () => {
               window.location.href = `/`;
             }}
           >
-            {capitalizeFirstLetter(tesla)}
+            {capitalizeFirstLetter(teslaText)}
           </button>
         </div>
         {allCategory.map((item, index) => {
