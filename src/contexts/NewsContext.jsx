@@ -15,10 +15,8 @@ const NewsContextProvider = (props) => {
   //tesla
   const [tesla, setTesla] = useState([]);
   const [teslaItem, setTeslaItem] = useState([]);
-  const [teslaTitle, setTeslaTitle] = useState("");
   //detail
   const [detail, setDetail] = useState({});
-  const [searchDetail, setSearchDetail] = useState({});
   //category
   const [category, setCategory] = useState("tesla");
   //loading
@@ -26,7 +24,10 @@ const NewsContextProvider = (props) => {
   const [teslaLoading, setTeslaLoading] = useState(false);
   //search
   const [search, setSearch] = useState("");
+  const [searched, setSearched] = useState("");
+  const [searchDetail, setSearchDetail] = useState({});
   const [searchArray, setSearchArray] = useState([]);
+  //error
   const [error, setError] = useState(false);
 
   const allCategory = [
@@ -55,11 +56,6 @@ const NewsContextProvider = (props) => {
       setCategory(getCateg);
     }
 
-    const getSort = JSON.parse(localStorage.getItem("sort"));
-    if (getSort) {
-      setSort(getSort);
-    }
-
     const getSearchDetail = JSON.parse(localStorage.getItem("searchDetail"));
     if (getSearchDetail) {
       setSearchDetail(getSearchDetail);
@@ -74,57 +70,46 @@ const NewsContextProvider = (props) => {
     if (getTeslaItem) {
       setTeslaItem(getTeslaItem);
     }
-
-    const getTeslaTitle = JSON.parse(localStorage.getItem("teslaTitle"));
-    if (getTeslaTitle) {
-      setTeslaTitle(getTeslaTitle);
-    }
   }, []);
 
   // get newsapi request
-  async function getNews(item, sortItem) {
+  async function getNews(item) {
     if (window.location.pathname == "/") {
-      await axios
-        .get(
-          `https://newsapi.org/v2/everything?q=tesla&sortBy=publishedAt&apiKey=${REACT_APP_API_KEY_THIRD}`
-        )
-        .then((res) => {
-          setTeslaLoading(true);
-          localStorage.setItem("tesla", JSON.stringify(res.data.articles));
-          // setTesla(res.data.articles);
-          setTeslaLoading(false);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      const url = await axios.get(
+        `https://newsapi.org/v2/everything?q=tesla&sortBy=publishedAt&language=en&apiKey=${REACT_APP_API_KEY_FOURTH}`
+      );
+      setTeslaLoading(true);
+      localStorage.setItem("tesla", JSON.stringify(url.data.articles));
+      setTeslaLoading(false);
     } else if (window.location.pathname == `/${item}`) {
-      await axios
-        .get(
-          `https://newsapi.org/v2/top-headlines?category=${item}&sortBy=publishedAt&pageSize=100&language=en&apiKey=${REACT_APP_API_KEY_THIRD}`
-        )
-        .then((res) => {
-          setTeslaLoading(true);
-          setTesla(res.data.articles);
-          setTeslaLoading(false);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      const url = await axios.get(
+        `https://newsapi.org/v2/top-headlines?category=${item}&sortBy=publishedAt&pageSize=100&language=en&apiKey=${REACT_APP_API_KEY_FOURTH}`
+      );
+      setTeslaLoading(true);
+      setSearched(item);
+      setTesla(url.data.articles);
+      setTeslaLoading(false);
     }
   }
 
   // get search news
   const getSearch = async (item) => {
     setLoading(true);
-    const url = `https://newsapi.org/v2/everything?q=${item}&sortBy=publishedAt&apiKey=${REACT_APP_API_KEY_THIRD}`;
+    const url = `https://newsapi.org/v2/everything?q=${item}&sortBy=publishedAt&language=en&apiKey=${REACT_APP_API_KEY_FOURTH}`;
     const data = await axios.get(url);
-    setSearchArray(data.data.articles);
-    setLoading(false);
+    if (data.data.articles.length > 0) {
+      setSearchArray(data.data.articles);
+      setLoading(false);
+    } else {
+      setError(true);
+      setTimeout(() => {
+        setError(false);
+      }, 7500);
+    }
   };
 
   //go to detail page
   const handleClick = (item, url) => {
-    let splitUrl = item.title.toLowerCase();
     tesla.length > 0 &&
       tesla.filter((element) => {
         let elementSplitUrl = element.title.toLowerCase();
@@ -149,6 +134,7 @@ const NewsContextProvider = (props) => {
           localStorage.setItem("detail", JSON.stringify(newDetail));
         }
 
+        //seen
         if (element.description === item.description) {
           let newDetail = {
             author: item.author,
@@ -175,7 +161,6 @@ const NewsContextProvider = (props) => {
             return false;
           });
 
-          localStorage.setItem("teslaTitle", JSON.stringify(item.title));
           localStorage.setItem("teslaItem", JSON.stringify(uniqueTeslaItem));
         }
 
@@ -208,11 +193,6 @@ const NewsContextProvider = (props) => {
       });
   };
 
-  // text first character to uppercase
-  function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  }
-
   return (
     <NewsContext.Provider
       value={{
@@ -222,7 +202,6 @@ const NewsContextProvider = (props) => {
         searchDetail,
         handleClick,
         setCategory,
-        capitalizeFirstLetter,
         allCategory,
         loading,
         teslaLoading,
@@ -230,9 +209,9 @@ const NewsContextProvider = (props) => {
         setSearch,
         searchArray,
         getSearch,
-        teslaTitle,
         error,
         setError,
+        searched,
       }}
     >
       {props.children}
