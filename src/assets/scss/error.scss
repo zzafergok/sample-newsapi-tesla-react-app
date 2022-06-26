@@ -1,0 +1,33 @@
+.searched {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-right: 1rem;
+  &-error {
+    position: relative;
+    top: 3.5rem;
+    border: 1px solid white;
+    min-width: 270px;
+    max-width: 270px;
+    border-radius: 5px;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    box-shadow: 0 1px 10px 0 rgb(0 0 0 / 10%), 0 2px 15px 0 rgb(0 0 0 / 5%);
+    cursor: pointer;
+    direction: ltr;
+    box-sizing: border-box;
+    margin-bottom: 1rem;
+
+    @media (max-width: 550px) {
+      top: 7.5rem;
+    }
+
+    svg {
+      color: orange;
+      height: 22px;
+      width: 22px;
+    }
+  }
+}

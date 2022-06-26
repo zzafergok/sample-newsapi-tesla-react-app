@@ -22,6 +22,9 @@ const SearchBar = () => {
             setError(false);
           } else {
             setError(true);
+            setTimeout(() => {
+              setError(false);
+            }, 7500);
           }
         }}
       />
@@ -36,6 +39,9 @@ const SearchBar = () => {
             setError(false);
           } else {
             setError(true);
+            setTimeout(() => {
+              setError(false);
+            }, 7500);
           }
         }}
       >
