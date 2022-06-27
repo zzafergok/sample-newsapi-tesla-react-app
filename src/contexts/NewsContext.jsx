@@ -76,14 +76,14 @@ const NewsContextProvider = (props) => {
   async function getNews(item) {
     if (window.location.pathname == "/") {
       const url = await axios.get(
-        `https://newsapi.org/v2/everything?q=tesla&sortBy=publishedAt&language=en&apiKey=${REACT_APP_API_KEY_FIRST}`
+        `https://newsapi.org/v2/everything?q=tesla&sortBy=publishedAt&language=en&apiKey=${REACT_APP_API_KEY_SECOND}`
       );
       setTeslaLoading(true);
       localStorage.setItem("tesla", JSON.stringify(url.data.articles));
       setTeslaLoading(false);
     } else if (window.location.pathname == `/${item}`) {
       const url = await axios.get(
-        `https://newsapi.org/v2/top-headlines?category=${item}&sortBy=publishedAt&pageSize=100&language=en&apiKey=${REACT_APP_API_KEY_FIRST}`
+        `https://newsapi.org/v2/top-headlines?category=${item}&sortBy=publishedAt&pageSize=100&language=en&apiKey=${REACT_APP_API_KEY_SECOND}`
       );
       setTeslaLoading(true);
       setSearched(item);
@@ -95,7 +95,7 @@ const NewsContextProvider = (props) => {
   // get search news
   const getSearch = async (item) => {
     setLoading(true);
-    const url = `https://newsapi.org/v2/everything?q=${item}&sortBy=publishedAt&language=en&apiKey=${REACT_APP_API_KEY_FIRST}`;
+    const url = `https://newsapi.org/v2/everything?q=${item}&sortBy=publishedAt&language=en&apiKey=${REACT_APP_API_KEY_SECOND}`;
     const data = await axios.get(url);
     if (data.data.articles.length > 0) {
       setSearchArray(data.data.articles);
